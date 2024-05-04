@@ -4,11 +4,7 @@ interface FirebaseUser {
   email: string;
   photoURL: string;
 }
-export const firebaseUserAtom = atom<FirebaseUser>({
-  key: "user",
-  default: {
-    displayName: "",
-    email: "",
-    photoURL: "",
-  },
+export const firebaseUserAtom = atom<boolean>({
+  key: "auth",
+  default: false,
 });

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database";
 const Config = {
   apiKey: "AIzaSyDWD8d4HV6qk9GHs5TY_OyKbM4Yml0KCnY",
   authDomain: "fir-inter-18713.firebaseapp.com",
@@ -14,11 +16,13 @@ const Config = {
 /**
  * Creates and initializes a @firebase/app#FirebaseApp instance.
  */
- const authApp = initializeApp(Config);
+export const authApp = initializeApp(Config);
 
 /**
  *Returns the Auth instance associated with the provided
  */
 export const Auth = getAuth(authApp);
+export const db = getDatabase(authApp);
+export const storage = getStorage(authApp, "gs://fir-inter-18713.appspot.com");
 
 export const GProvider = new GoogleAuthProvider();

@@ -12,12 +12,13 @@ export default function LogInWithGoogleBtn() {
     setLoading(true);
     try {
       const res = await signInWithPopup(Auth, GProvider);
-      console.log(res);
       toast({
         variant: "success",
         title: "Google ",
         description: "You are logged in with Google",
       });
+       const idToken = await res.user.getIdToken(true);
+       localStorage.setItem("authorization", idToken!);
     } catch (error: any) {
       const erm: Error = error;
 
