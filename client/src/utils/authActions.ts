@@ -30,6 +30,7 @@ export const SignUpWithEmailAndPassword = async (data: UserSignInTypes) => {
     const newRes = await updateProfile(res.user, {
       displayName: data.username,
     });
+    newRes;
     if (res.user.email) {
       await adduserToDb();
     }

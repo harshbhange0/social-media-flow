@@ -7,7 +7,7 @@ import {
   SignUpWithEmailAndPassword,
   UserSignInTypes,
 } from "@/utils/authActions";
-import {  useState } from "react";
+import { useState } from "react";
 import { DevTool } from "@hookform/devtools";
 import { useToast } from "./ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -40,11 +40,13 @@ export default function Form({ type }: { type: FormProps }) {
           });
         }
         const res = await SignUpWithEmailAndPassword(data);
-        toast({
-          variant: "success",
-          title: "Email and Password",
-          description: "Register Successfully",
-        });
+        if (res) {
+          toast({
+            variant: "success",
+            title: "Email and Password",
+            description: "Register Successfully",
+          });
+        }
       } else {
         if (data.email === "" || data.password === "") {
           setError(true);
@@ -57,11 +59,13 @@ export default function Form({ type }: { type: FormProps }) {
           });
         }
         const res = await SignInWithEmailAndPassword(data);
-        toast({
-          variant: "success",
-          title: "Email and Password",
-          description: "Login Successfully",
-        });
+        if (res) {
+          toast({
+            variant: "success",
+            title: "Email and Password",
+            description: "Login Successfully",
+          });
+        }
       }
 
       return;
