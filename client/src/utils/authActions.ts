@@ -1,4 +1,5 @@
 import { Auth } from "@/firebase/config";
+import axios from "axios";
 import { FirebaseError } from "firebase/app";
 import {
   User,
@@ -29,8 +30,10 @@ export const SignUpWithEmailAndPassword = async (data: UserSignInTypes) => {
     const newRes = await updateProfile(res.user, {
       displayName: data.username,
     });
-
-    return { res };
+    if (res.user.email) {
+      await adduserToDb();
+    }
+    return res;
   } catch (error: any | FirebaseError) {
     throw new Error(error.code.toString());
   }
@@ -74,5 +77,39 @@ export const getAuth = async (): Promise<{
     }
 
     return { displayName, email, photoURL };
+  }
+};
+
+export const adduserToDb = async () => {
+  if (Auth.currentUser?.email || Auth.currentUser?.photoURL) {
+    const user = {
+      email: Auth.currentUser?.email,
+      photoUrl: Auth.currentUser?.photoURL,
+    };
+    try {
+      const res = await axios.post("http://localhost:3021/api/v1/create/user", {
+        ...user,
+      });
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return null;
+};
+
+export const updateProfilePicture = async (photoUrl: string) => {
+  if (Auth.currentUser?.email) {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}user/update/profile/photo/${Auth.currentUser?.email}`,
+        { photoUrl: photoUrl },
+      );
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 };

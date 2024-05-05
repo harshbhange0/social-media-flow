@@ -4,6 +4,7 @@ import { Auth, GProvider } from "@/firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
+import { adduserToDb } from "@/utils/authActions";
 
 export default function LogInWithGoogleBtn() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,8 +18,11 @@ export default function LogInWithGoogleBtn() {
         title: "Google ",
         description: "You are logged in with Google",
       });
-       const idToken = await res.user.getIdToken(true);
-       localStorage.setItem("authorization", idToken!);
+      if (res.user?.email) {
+        await adduserToDb();
+      }
+      const idToken = await res.user.getIdToken(true);
+      localStorage.setItem("authorization", idToken!);
     } catch (error: any) {
       const erm: Error = error;
 

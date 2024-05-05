@@ -7,7 +7,7 @@ import {
   SignUpWithEmailAndPassword,
   UserSignInTypes,
 } from "@/utils/authActions";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { DevTool } from "@hookform/devtools";
 import { useToast } from "./ui/use-toast";
 import { useNavigate } from "react-router-dom";

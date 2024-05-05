@@ -17,6 +17,7 @@ import {
 import { Auth, storage } from "@/firebase/config";
 import { toast } from "./ui/use-toast";
 import { updateProfile } from "firebase/auth";
+import { updateProfilePicture } from "@/utils/authActions";
 
 export default function UpdateProfilePicture() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,6 +50,7 @@ export default function UpdateProfilePicture() {
     }
     if (Auth.currentUser || uploadedImgUrl) {
       await updateProfile(Auth.currentUser!, { photoURL: uploadedImgUrl });
+      await updateProfilePicture(uploadedImgUrl);
       toast({
         variant: "success",
         description: "Profile Picture Updated",
@@ -58,7 +60,7 @@ export default function UpdateProfilePicture() {
   };
 
   return (
-    <div>
+    <>
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Update Profile Picture</Button>
@@ -100,6 +102,6 @@ export default function UpdateProfilePicture() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }
