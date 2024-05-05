@@ -5,8 +5,10 @@ import { signInWithPopup } from "firebase/auth";
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
 import { adduserToDb } from "@/utils/authActions";
+import { useNavigate } from "react-router-dom";
 
 export default function LogInWithGoogleBtn() {
+  const navigation = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
   const handleClick = async () => {
@@ -23,6 +25,7 @@ export default function LogInWithGoogleBtn() {
       }
       const idToken = await res.user.getIdToken(true);
       localStorage.setItem("authorization", idToken!);
+      navigation("/profile");
     } catch (error: any) {
       const erm: Error = error;
 
