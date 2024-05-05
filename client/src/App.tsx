@@ -9,6 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { Auth } from "./firebase/config";
 import { useRecoilState } from "recoil";
 import { firebaseUserAtom } from "./store/atom";
+import Navbar from "./components/Navbar";
 export interface userTypes {
   displayName: string;
   email: string;
@@ -41,6 +42,7 @@ export default function App() {
 
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<AuthPage />} />

@@ -41,14 +41,14 @@ export default function Profile({
         <div className="flex h-72 w-1/2 flex-col items-center justify-center ">
           {loading ? (
             <div className="h-52 w-52 animate-pulse rounded-full" />
+          ) : user?.photoURL ? (
+            <img
+              className="size-fit rounded-full object-center sm:size-52"
+              src={user?.photoURL}
+              alt=""
+            />
           ) : (
-            <>
-              <img
-                className="size-fit rounded-full object-center sm:size-52"
-                src={user?.photoURL}
-                alt=""
-              />
-            </>
+            <span>Pleas Update Profile Picture</span>
           )}
           <div className="mt-2">
             <UpdateProfilePicture />

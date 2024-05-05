@@ -8,7 +8,7 @@ import {
   UserSignInTypes,
 } from "@/utils/authActions";
 import { useState } from "react";
-import { DevTool } from "@hookform/devtools";
+
 import { useToast } from "./ui/use-toast";
 import { useNavigate } from "react-router-dom";
 export type FormProps = "register" | "login";
@@ -21,7 +21,7 @@ export default function Form({ type }: { type: FormProps }) {
   });
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { register, handleSubmit, formState, control, reset } = form;
+  const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
   const onSubmit = async (data: UserSignInTypes) => {
     setLoading(true);
@@ -170,7 +170,6 @@ export default function Form({ type }: { type: FormProps }) {
           </p>
         )}
       </form>
-      <DevTool control={control} />
     </>
   );
 }

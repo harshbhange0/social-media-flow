@@ -1,5 +1,6 @@
 import { DNA } from "react-loader-spinner";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const PrivateRoutes = ({
   children,
@@ -18,12 +19,13 @@ const PrivateRoutes = ({
         clearInterval(time);
       }
     }, 1000);
+    setLoading(false);
   };
   useEffect(() => {
     run();
   }, []);
 
-  if (loading && !auth) {
+  if (loading) {
     return (
       <div className="grid h-screen place-content-center place-items-center">
         <DNA
@@ -38,7 +40,14 @@ const PrivateRoutes = ({
     );
   } else {
     clearInterval(time!);
-    return <>{children}</>;
+    return auth ? (
+      <>{children}</>
+    ) : (
+      <div className="min-h-screen flex items-center justify-center flex-col">
+        <span>Pleas Log in Or Register </span>
+        <Link to={"/auth"} className="text-blue-600 underline"> Click hear</Link>
+      </div>
+    );
   }
 };
 export default PrivateRoutes;
